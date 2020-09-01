@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Users from './components/Users';
 import Home from './views/Home';
-import Search from './views/Search';
+import SearchPage from './views/SearchPage';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
             <Users />
           </Route>
           <Route exact path="/search">
-            <Search />
+            <SearchPage />
           </Route>
           <Route exact path="/">
             <Home />
