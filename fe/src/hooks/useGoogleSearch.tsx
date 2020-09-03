@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API_KEY from "../keys";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const CONTEXT_KEY = "a6733d3b6223d59bb";
 const useGoogleSearch = (term: any) => {
