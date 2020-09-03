@@ -32,6 +32,10 @@ const postsRouter = require('./routes/posts');
 app.use('/excercises', excerciseRouter);
 app.use('/posts', postsRouter);
 
+if(process.env.NODE_ENV === 'production'){
+
+}
+
 app.listen(port, () => {
 	console.log(`Server is running on ${port}`);
 });
