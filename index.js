@@ -32,9 +32,12 @@ const postsRouter = require('./routes/posts');
 app.use('/excercises', excerciseRouter);
 app.use('/posts', postsRouter);
 
-if(process.env.NODE_ENV === 'production'){
-
-}
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+	app.use(express.static('fe/build'));
+	app.get('*', (req, res) => {
+	  res.sendFile(path.join(__dirname + '/fe/build/index.html'));
+	});
+  }
 
 app.listen(port, () => {
 	console.log(`Server is running on ${port}`);
