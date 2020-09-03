@@ -1,19 +1,19 @@
 const router = require('express').Router();
-let User = require('../models/users.model');
+let Post = require('../models/posts.model');
 
 router.route('/').get((req, res) => {
-    User.find()
-    .then(user => res.json(user))
+    Post.find()
+    .then(post => res.json(post))
     .catch(err => res.status(400).json(`Error` + err));
 });
 
 router.route('/add').post((req, res ) => {
     console.log(`${req.body.username} user`);
     let username = req.body.username;
-    const newUser = new User({username: username});
+    const newPost = new Post({username: username});
 
-    newUser.save()
-    .then(() => res.json('User Added'))
+    newPost.save()
+    .then(() => res.json('Post Added'))
     .catch(err => res.status(400).json(`Error ` + err));
 });
 

@@ -18,19 +18,19 @@ connection.once('open', () => {
 });
 
 // serves the built version of your react app
-app.use(express.static(path.join(__dirname, '/fe/build')));
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname + '/fe/build/index.html'));
-});
+// app.use(express.static(path.join(__dirname, '/fe/build')));
+// app.get('*', (req, res) => {
+// 	res.sendFile(path.join(__dirname + '/fe/build/index.html'));
+// });
 
 app.use(cors());
 app.use(express.json());
 
 const excerciseRouter = require('./routes/excercises');
-const userRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
 
 app.use('/excercises', excerciseRouter);
-app.use('/users', userRouter);
+app.use('/posts', postsRouter);
 
 app.listen(port, () => {
 	console.log(`Server is running on ${port}`);

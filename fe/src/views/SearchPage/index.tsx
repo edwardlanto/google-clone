@@ -13,7 +13,8 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import RoomIcon from "@material-ui/icons/Room";
 
 function SearchPage() {
-  // Grab val from contexzt api provider.
+  
+  // Grab val from context api provider.
   const [{ term }, dispatch] = useStateValue();
   const { data } = useGoogleSearch(term);
   console.log('DATA', data);

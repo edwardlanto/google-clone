@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -6,18 +6,15 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Users from './components/Users';
 import Home from './views/Home';
 import SearchPage from './views/SearchPage';
 
 function App() {
+
   return (
     <Router>
       <div>
         <Switch>
-          <Route exact path="/users">
-            <Users />
-          </Route>
           <Route exact path="/search">
             <SearchPage />
           </Route>

@@ -10,15 +10,14 @@ const useGoogleSearch = (term: any) => {
     const fetchData = async () => {
       await axios(`https://www.googleapis.com/customsearch/v1?key=${API_KEY}
       &cx=${CONTEXT_KEY}&q=${term}
-      `)
-      .then(res => setData(res))
-    }
+      `).then((res) => setData(res));
+    };
     fetchData();
   }, [term]);
 
   return {
-    data
-  }
+    data,
+  };
 };
 
 export default useGoogleSearch;
