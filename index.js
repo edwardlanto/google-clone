@@ -9,9 +9,9 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-const uri = mongoKey.dev;
+const uri = process.env.MONGO_KEY_DEV;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
+console.log('use', uri);
 const connection = mongoose.connection;
 connection.once('open', () => {
 	console.log('Mongoose Connection good');
