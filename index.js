@@ -8,19 +8,13 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-const uri = process.env.MONGO_KEY_DEV;
+const uri = process.env.NODE_ENV === 'development' ? process.env.MONGO_KEY_DEV :  process.env.MONGO_KEY;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 console.log('use', uri);
 const connection = mongoose.connection;
 connection.once('open', () => {
 	console.log('Mongoose Connection good');
 });
-
-// serves the built version of your react app
-// app.use(express.static(path.join(__dirname, '/fe/build')));
-// app.get('*', (req, res) => {
-// 	res.sendFile(path.join(__dirname + '/fe/build/index.html'));
-// });
 
 app.use(cors());
 app.use(express.json());
