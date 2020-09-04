@@ -1,7 +1,7 @@
 import React from "react";
 import { useStateValue } from "../../providers/StateProvider";
 import useGoogleSearch from "../../hooks/useGoogleSearch";
-import Response from "../../response";
+
 import { Link } from "react-router-dom";
 import Search from "../../components/Search";
 import "./index.css";
@@ -17,7 +17,7 @@ function SearchPage() {
   // Grab val from context api provider.
   const [{ term }, dispatch] = useStateValue();
   const { data } = useGoogleSearch(term);
-  console.log('DATA', data);
+  console.log('data', data);
   return (
     <div className="searchPage">
       <div className="searchPage__header">
@@ -80,7 +80,7 @@ function SearchPage() {
               <a href={item.link}>
                   <img
                     src={
-                      item.pagemap?.cse_image?.length > 0 &&
+                      item.pagemap?.cse_image &&
                       item.pagemap?.cse_image[0]?.src
                     }
                     className="searchPage__resultImage"

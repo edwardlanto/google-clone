@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 import AppsIcon from "@material-ui/icons/Apps";
 import { Avatar } from "@material-ui/core";
-import Search from "../../components/Search";
 import axios from 'axios';
+import Search from "../../components/Search";
+// const Search = React.lazy(() => import ("../../components/Search"));
 
 function Home() {
 
   useEffect(() => {
       axios.get('http://localhost:5000/posts/')
       .then((res) => {
-        console.log('RESS', res);
       }).catch(err => {
         console.log('err', err);
       })
@@ -38,7 +38,9 @@ function Home() {
         />
       </div>
       <div className="home__inputContainer">
-        <Search hideButtons />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Search />
+        </Suspense>
       </div>
     </div>
   );

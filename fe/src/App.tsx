@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import Home from './views/Home';
-import SearchPage from './views/SearchPage';
+const Home = React.lazy(() => import('./views/Home'));
+const SearchPage = React.lazy(() => import('./views/SearchPage'));
 
 function App() {
 
@@ -15,12 +14,14 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/search">
-            <SearchPage />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Route exact path="/search">
+              <SearchPage />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Suspense>
         </Switch>
       </div>
     </Router>
