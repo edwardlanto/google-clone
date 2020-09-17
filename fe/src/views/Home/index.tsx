@@ -4,13 +4,13 @@ import axios from 'axios';
 import Search from "../../components/Search";
 
 function Home() {
-  useEffect(() => {
-      axios.get('http://localhost:5000/posts/')
-      .then((res) => {
-      }).catch(err => {
-        console.log('err', err);
-      })
-  }, []);
+  // useEffect(() => {
+  //     axios.get('/posts')
+  //     .then((res) => {
+  //     }).catch(err => {
+  //       console.log('err', err);
+  //     })
+  // }, []);
 
   return (
     <div className="home">

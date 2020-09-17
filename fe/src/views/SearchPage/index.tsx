@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStateValue } from "../../providers/StateProvider";
 import useGoogleSearch from "../../hooks/useGoogleSearch";
 
@@ -16,8 +16,8 @@ function SearchPage() {
   
   // Grab val from context api provider.
   const [{ term }, dispatch] = useStateValue();
-  const { data } = useGoogleSearch(term);
-  console.log("data", data);
+  let { data } = useGoogleSearch(term);
+
   return (
     <div className="searchPage">
       <div className="searchPage__header">
@@ -31,32 +31,6 @@ function SearchPage() {
         <div className="searchPage__headerBody">
           <Search hideButtons />
           <div className="searchPage__options">
-            <div className="searchPage__optionsLeft">
-              <div className="searchPage__option">
-                <SearchIcon />
-                <Link to="/all">All</Link>
-              </div>
-              <div className="searchPage__option">
-                <DescriptionIcon />
-                <Link to="/news">News</Link>
-              </div>
-              <div className="searchPage__option">
-                <ImageIcon />
-                <Link to="/image">Images</Link>
-              </div>
-              <div className="searchPage__option">
-                <LocalOfferIcon />
-                <Link to="/all">Shoppings</Link>
-              </div>
-              <div className="searchPage__option">
-                <RoomIcon />
-                <Link to="/maps">Maps</Link>
-              </div>
-              <div className="searchPage__option">
-                <MoreVertIcon />
-                <Link to="/more">More</Link>
-              </div>
-            </div>
             <div className="searchPage__optionsRight">
               <div className="searchPage__option">
                 <Link to="/settings">Settings</Link>
@@ -72,7 +46,7 @@ function SearchPage() {
       {data !== null && (
         <div className="searchPage__results">
           <p className="searchPage__resultCount">
-            {/* About {data?.searchInformation?.formattedTotalResults} results (
+            {/* About {data !== undefined && (data?.searchInformation?.formattedTotalResults)} results (
             {data?.searchInformation.formattedSearchTime} seconds) for {term} */}
           </p>
           {data.data.items.map((item: any) => (

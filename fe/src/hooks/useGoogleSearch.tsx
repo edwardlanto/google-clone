@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-const API_KEY_DEV = process.env.REACT_APP_API_KEY;
-
-const API_KEY = process.env.NODE_ENV === 'development' ? API_KEY_DEV : process.env.API_KEY;
-const CONTEXT_KEY = process.env.REACT_APP_CONTEXT_KEY;
+const API_KEY =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_API_KEY
+    : process.env.API_KEY;
 
 const useGoogleSearch = (term: any) => {
   const [data, setData] = useState<any>(null);
@@ -14,6 +14,12 @@ const useGoogleSearch = (term: any) => {
       &cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${term}
       `).then((res) => setData(res));
     };
+
+    if (term === null) {
+      const url = new URL(window.location.href);
+      term = url.searchParams.get("term");
+    }
+
     fetchData();
   }, [term]);
 
