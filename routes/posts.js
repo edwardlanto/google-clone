@@ -7,14 +7,8 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json(`Error` + err));
 });
 
-router.route('/add').post((req, res ) => {
-    console.log(`${req.body.username} user`);
-    let username = req.body.username;
-    const newPost = new Post({username: username});
+router.route('/post').post((req, res ) => {
 
-    newPost.save()
-    .then(() => res.json('Post Added'))
-    .catch(err => res.status(400).json(`Error ` + err));
 });
 
 module.exports = router;

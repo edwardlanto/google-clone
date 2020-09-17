@@ -14,7 +14,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div></div>}>
             <Route exact path="/search">
               <SearchPage />
             </Route>

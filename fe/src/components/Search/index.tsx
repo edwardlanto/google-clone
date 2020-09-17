@@ -6,22 +6,33 @@ import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "../../providers/StateProvider";
 import { actionTypes } from "../../reducers";
-import useGoogleSearch from "../../hooks/useGoogleSearch";
+import axios from 'axios';
 
 function Search({ hideButtons = false }) {
   const [input, setInput] = useState<any>("");
   const [{}, dispatch] = useStateValue();
   const history = useHistory();
 
-  function setLucky(lucky: Boolean) {
-    if (lucky === false) {
+
+  const search = async (lucky: Boolean) => {
+    if(lucky === false){
       dispatch({
         type: actionTypes.SET_SEARCH_TERM,
         term: input,
       });
       history.push(`/search?term=${input}`);
+    }else{
+
+      // This is for if the user presses "I'm feeling lucky" to redirect them.
+      const res = await axios.get(`https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_API_KEY}
+      &cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${input}`);
+      const windowLocation = res.data.items[0].formattedUrl;
+      window.location.href = windowLocation;
     }
   }
+
+  
+ 
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -39,15 +50,15 @@ function Search({ hideButtons = false }) {
 
       {!hideButtons ? (
         <div className="search__buttons">
-          <Button onClick={() => setLucky(false)}>Google Search</Button>
-          <Button onClick={() => setLucky(true)}>I'm Feeling Lucky test</Button>
+          <Button onClick={() => search(false)}>Google Search</Button>
+          <Button onClick={() => search(true)}>I'm Feeling Lucky test</Button>
         </div>
       ) : (
         <div className="search__buttons">
           <Button
             className="search__buttonsHidden"
             type="button"
-            onClick={() => setLucky(false)}
+            onClick={() => search(false)}
           >
             Google Search
           </Button>
