@@ -18,10 +18,8 @@ connection.once('open', () => {
 app.use(cors());
 app.use(express.json());
 
-const excerciseRouter = require('./routes/excercises');
 const postsRouter = require('./routes/posts');
 
-app.use('/excercises', excerciseRouter);
 app.use('/posts', postsRouter);
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {

@@ -3,7 +3,7 @@ export const initialState = {
 };
 
 export const actionTypes = {
-  SET_SEARCH_TERM: "SET_SEARCH_TERM",
+  SET_SEARCH_TERM: "SET_SEARCH_TERM"
 };
 
 const reducer = (state:any, action:any) => {
@@ -13,7 +13,6 @@ const reducer = (state:any, action:any) => {
         ...state,
         term: action.term,
       };
-
     default:
       return state;
   }
