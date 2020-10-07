@@ -6,35 +6,44 @@ import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "../../providers/StateProvider";
 import { actionTypes } from "../../reducers";
-import axios from 'axios';
+import axios from "axios";
 
 function Search({ hideButtons = false }) {
   const [input, setInput] = useState("");
   const [{}, dispatch] = useStateValue();
   const history = useHistory();
-
+  const url = new URL(window.location.href);
+  let _term = url.searchParams.get("term");
   const search = async (lucky) => {
-    if(lucky === false){
-
+    if (lucky === false) {
       // This url is used to save term state onreload
-      const url = new URL(window.location.href);
-      let _term = url.searchParams.get("term");
+
       history.push(`/search?term=${input}`);
       dispatch({
         type: actionTypes.SET_SEARCH_TERM,
-        term: _term !== null ? _term : input
+        term: _term !== null ? _term : input,
       });
-    }else{
+    } else if (lucky === true) {
       // This is for if the user presses "I'm feeling lucky" to redirect them.
       const res = await axios.get(`https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_API_KEY}
       &cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${input}`);
       const windowLocation = res.data.items[0].formattedUrl;
       window.location.href = windowLocation;
     }
-  }
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    // This url is used to save term state onreload
+    history.push(`/search?term=${input}`);
+    dispatch({
+      type: actionTypes.SET_SEARCH_TERM,
+      term: input,
+    });
+  };
 
   return (
-    <form className="search">
+    <form className="search" onSubmit={(e) => submit(e)}>
       <div className="search__input">
         <SearchIcon className="search__inputIcon" />
         <input value={input} onChange={(e) => setInput(e.target.value)}/>
@@ -43,7 +52,7 @@ function Search({ hideButtons = false }) {
 
       {!hideButtons ? (
         <div className="search__buttons">
-          <Button onClick={() => search(false)} type="submit">Google Search</Button>
+          <Button onClick={() => search(false)}>Google Search</Button>
           <Button onClick={() => search(true)}>I'm Feeling Lucky test</Button>
         </div>
       ) : (

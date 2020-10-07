@@ -9,6 +9,7 @@ const useGoogleSearch = (term) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    
     const fetchData = async () => {
       await axios(`https://www.googleapis.com/customsearch/v1?key=${API_KEY}
       &cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${term}
