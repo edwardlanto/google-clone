@@ -5,8 +5,8 @@ const API_KEY =
     ? process.env.REACT_APP_API_KEY
     : process.env.API_KEY;
 
-const useGoogleSearch = (term: any) => {
-  const [data, setData] = useState<any>(null);
+const useGoogleSearch = (term) => {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -49,7 +49,7 @@ function SearchPage() {
             {/* About {data !== undefined && (data?.searchInformation?.formattedTotalResults)} results (
             {data?.searchInformation.formattedSearchTime} seconds) for {term} */}
           </p>
-          {data.data.items.map((item: any) => (
+          {data.data.items.map((item) => (
             <div className="searchPage__result" key={item.title}>
               {item.pagemap?.cse_image !== undefined && (
                 <a href={item.link}>

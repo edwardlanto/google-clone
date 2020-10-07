@@ -9,11 +9,11 @@ import { actionTypes } from "../../reducers";
 import axios from 'axios';
 
 function Search({ hideButtons = false }) {
-  const [input, setInput] = useState<any>("");
+  const [input, setInput] = useState("");
   const [{}, dispatch] = useStateValue();
   const history = useHistory();
 
-  const search = async (lucky: Boolean) => {
+  const search = async (lucky) => {
     if(lucky === false){
 
       // This url is used to save term state onreload
