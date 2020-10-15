@@ -11,11 +11,8 @@
 		"dotenv": "^8.2.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"react-google-autocomplete": "^1.2.6",
-		"react-mic": "^12.4.6",
 		"react-router-dom": "^5.2.0",
-		"react-scripts": "^3.4.3",
-		"recorder-js": "^1.0.7"
+		"react-scripts": "^3.4.3"
 	},
 	"scripts": {
 		"start": "react-scripts start",

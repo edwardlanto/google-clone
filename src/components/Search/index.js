@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./index.css";
 import MicIcon from "@material-ui/icons/Mic";
 import SearchIcon from "@material-ui/icons/Search";
@@ -9,19 +9,19 @@ import { actionTypes } from "../../reducers";
 import axios from "axios";
 
 function Search({ hideButtons = false }) {
-  const [input, setInput] = useState("");
-  const [{}, dispatch] = useStateValue();
-  const history = useHistory();
   const url = new URL(window.location.href);
   let _term = url.searchParams.get("term");
+  const [input, setInput] = useState(() => _term ? _term : "");
+  const [{}, dispatch] = useStateValue();
+  const history = useHistory();
   const search = async (lucky) => {
-    if (lucky === false) {
-      // This url is used to save term state onreload
 
+    // If lucky button is pressed
+    if (lucky === false) {
       history.push(`/search?term=${input}`);
       dispatch({
         type: actionTypes.SET_SEARCH_TERM,
-        term: _term !== null ? _term : input,
+        term: _term !== null ? _term : input
       });
     } else if (lucky === true) {
       // This is for if the user presses "I'm feeling lucky" to redirect them.
