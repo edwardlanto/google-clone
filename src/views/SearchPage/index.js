@@ -26,12 +26,12 @@ function SearchPage() {
         </div>
       </div>
 
-      {data !== null && (
+      {data !== undefined && (
         <div className="searchPage__results">
-          <p className="searchPage__resultCount">
+          {/* <p className="searchPage__resultCount">
             About {data?.data?.searchInformation?.formattedTotalResults} results (
             {data?.data?.searchInformation?.formattedSearchTime} seconds)
-          </p>
+          </p> */}
           {data.data?.items.map((item) => {
             console.log(typeof(item.pagemap?.cse_image?.[0].src))
             return (
