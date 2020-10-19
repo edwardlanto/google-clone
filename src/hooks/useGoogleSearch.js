@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 const API_KEY =
   process.env.NODE_ENV === "development"
@@ -9,12 +9,15 @@ const useGoogleSearch = (term) => {
   const [data, setData] = useState(term);
   useEffect(() => {
     const fetchData = async () => {
-      const url = new URL(window.location.href);
-      const urlTerm = url.searchParams.get("term");
-      await axios(`https://www.googleapis.com/customsearch/v1?key=${API_KEY}
-      &cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${urlTerm ? urlTerm : term}
+      await axios(`https://www.googleapis.com/customsearch/v1?key=AIzaSyCZKLMtht6y0R5lui9ow-FrHU7hwLafTXE&cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${term}
       `).then((res) => setData(res));
     };
+
+    if (term === null) {
+      // Deep linking search component
+      const url = new URL(window.location.href);
+      term = url.searchParams.get("term");
+    }
 
     fetchData();
   }, [term]);

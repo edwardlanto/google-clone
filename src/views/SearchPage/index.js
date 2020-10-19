@@ -6,8 +6,9 @@ import Search from "../../components/Search";
 import "./index.css";
 
 function SearchPage() {
+
   // Grab val from context api provider.
-  const [{ term }] = useStateValue(() => '');
+  const [{ term }] = useStateValue();
   let { data } = useGoogleSearch(term);
   console.log("DATA", data);
   return (
@@ -28,10 +29,10 @@ function SearchPage() {
       {data !== null && (
         <div className="searchPage__results">
           <p className="searchPage__resultCount">
-            About {data.data.searchInformation?.formattedTotalResults} results (
-            {data.data.searchInformation.formattedSearchTime} seconds)
+            About {data?.data?.searchInformation?.formattedTotalResults} results (
+            {data?.data?.searchInformation?.formattedSearchTime} seconds)
           </p>
-          {data.data.items.map((item) => {
+          {data.data?.items.map((item) => {
             console.log(typeof(item.pagemap?.cse_image?.[0].src))
             return (
               <div className="searchPage__result" key={item.displayLink}>
