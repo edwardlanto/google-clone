@@ -10,7 +10,6 @@ function SearchPage() {
   // Grab val from context api provider.
   const [{ term }] = useStateValue();
   let { data } = useGoogleSearch(term);
-  console.log("DATA", data);
   return (
     <div className="searchPage">
       <div className="searchPage__header">
@@ -26,14 +25,13 @@ function SearchPage() {
         </div>
       </div>
 
-      {data !== undefined && (
+      {data !== null && (
         <div className="searchPage__results">
-          {/* <p className="searchPage__resultCount">
+          <p className="searchPage__resultCount">
             About {data?.data?.searchInformation?.formattedTotalResults} results (
-            {data?.data?.searchInformation?.formattedSearchTime} seconds)
-          </p> */}
+            {data?.data?.searchInformation.formattedSearchTime} seconds)
+          </p>
           {data.data?.items.map((item) => {
-            console.log(typeof(item.pagemap?.cse_image?.[0].src))
             return (
               <div className="searchPage__result" key={item.displayLink}>
                 {typeof(item.pagemap?.cse_image?.[0].src) === "string" && (
