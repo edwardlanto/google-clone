@@ -6,10 +6,21 @@ import Search from "../../components/Search";
 import "./index.css";
 
 function SearchPage() {
-
   // Grab val from context api provider.
-  const [{ term }] = useStateValue();
+  const [{ term }] = useStateValue(() => "");
   let { data } = useGoogleSearch(term);
+
+  const handleError = (src, index) => {
+
+    // Error handle all broken images
+  const errorImages = document.getElementsByClassName(
+      `searchPage__resultImage`
+    );
+
+    // Access HTML Collection
+    errorImages.item(index).style.display = "none";
+  };
+
   return (
     <div className="searchPage">
       <div className="searchPage__header">
@@ -28,28 +39,33 @@ function SearchPage() {
       {data !== null && (
         <div className="searchPage__results">
           <p className="searchPage__resultCount">
-            About {data?.data?.searchInformation?.formattedTotalResults} results (
-            {data?.data?.searchInformation.formattedSearchTime} seconds)
+            About {data.data.searchInformation?.formattedTotalResults} results (
+            {data.data.searchInformation.formattedSearchTime} seconds)
           </p>
-          {data.data?.items.map((item) => {
+          {data?.data.items.map((item, index) => {
             return (
-              <div className="searchPage__result" key={item.displayLink}>
-                {typeof(item.pagemap?.cse_image?.[0].src) === "string" && (
+              item.pagemap.cse_image?.[0] && (
+                <div className="searchPage__result" key={index}>
                   <a href={item.link}>
+                    {item.pagemap.cse_image?.[0]?.src}
                     <img
-                      src={item.pagemap?.cse_image[0]?.src}
+                      src={item.pagemap.cse_image?.[0]?.src}
                       className="searchPage__resultImage"
-                      alt={`${item} thumbnail`}
+                      alt={`result image thumbnail`}
+                      // Handle broken images
+                      onError={() =>
+                        handleError(item.pagemap.cse_image?.[0].src, index)
+                      }
                     />
                   </a>
-                )}
 
-                <a href={item.link}>{item.displayLink}</a>
-                <a href={item.link} className="searchPage__resultTitle">
-                  <h2>{item.title}</h2>
-                </a>
-                <p className="searchPage__resultSnippet">{item.snippet}</p>
-              </div>
+                  <a href={item.link}>{item.displayLink}</a>
+                  <a href={item.link} className="searchPage__resultTitle">
+                    <h2>{item.title}</h2>
+                  </a>
+                  <p className="searchPage__resultSnippet">{item.snippet}</p>
+                </div>
+              )
             );
           })}
         </div>

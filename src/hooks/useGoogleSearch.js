@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const useGoogleSearch = (term) => {
-  const [data, setData] = useState(term);
+  const [data, setData] = useState(null);
+
   useEffect(() => {
-    const fetchData = async () => {
-      await axios(`https://www.googleapis.com/customsearch/v1?key${process.env.API_KEY}&cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${term}
+    
+    const fetchData = () => {
+      const url = new URL(window.location.href);
+      const urlTerm = url.searchParams.get("term");
+      axios(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDx6QVpLxxHK8NyjDKSk_bDD_IhJyXdr80&cx=f03019cb4ab7b624f&q=${urlTerm ? urlTerm : term}
       `).then((res) => setData(res));
     };
 
-    if (term === null) {
-      // Deep linking search component
-      const url = new URL(window.location.href);
-      term = url.searchParams.get("term");
-    }
 
     fetchData();
   }, [term]);

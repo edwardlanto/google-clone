@@ -25,8 +25,8 @@ function Search({ hideButtons = false }) {
       });
     } else if (lucky === true) {
       // This is for if the user presses "I'm feeling lucky" to redirect them.
-      const res = await axios.get(`https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_API_KEY}
-      &cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${input}`);
+      const res = await axios.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDx6QVpLxxHK8NyjDKSk_bDD_IhJyXdr80
+      &cx=AIzaSyDx6QVpLxxHK8NyjDKSk_bDD_IhJyXdr80&q=${input}`);
       const windowLocation = res.data.items[0].formattedUrl;
       window.location.href = windowLocation;
     }
@@ -53,7 +53,7 @@ function Search({ hideButtons = false }) {
       {!hideButtons ? (
         <div className="search__buttons">
           <Button onClick={() => search(false)}>Google Search</Button>
-          <Button onClick={() => search(true)}>I'm Feeling Lucky test</Button>
+          <Button onClick={() => search(true)}>I'm Feeling Lucky</Button>
         </div>
       ) : (
         <div></div>
