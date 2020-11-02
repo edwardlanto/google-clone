@@ -47,11 +47,10 @@ function SearchPage() {
               item.pagemap.cse_image?.[0] && (
                 <div className="searchPage__result" key={index}>
                   <a href={item.link}>
-                    {item.pagemap.cse_image?.[0]?.src}
                     <img
                       src={item.pagemap.cse_image?.[0]?.src}
                       className="searchPage__resultImage"
-                      alt={`result image thumbnail`}
+                      alt={`result thumbnail`}
                       // Handle broken images
                       onError={() =>
                         handleError(item.pagemap.cse_image?.[0].src, index)

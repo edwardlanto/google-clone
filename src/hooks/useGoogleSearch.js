@@ -9,7 +9,7 @@ const useGoogleSearch = (term) => {
     const fetchData = () => {
       const url = new URL(window.location.href);
       const urlTerm = url.searchParams.get("term");
-      axios(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDx6QVpLxxHK8NyjDKSk_bDD_IhJyXdr80&cx=f03019cb4ab7b624f&q=${urlTerm ? urlTerm : term}
+      axios(`https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}=${urlTerm ? urlTerm : term}
       `).then((res) => setData(res));
     };
 
