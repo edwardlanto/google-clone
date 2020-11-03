@@ -10,25 +10,28 @@ import axios from "axios";
 
 function Search({ hideButtons = false }) {
   const url = new URL(window.location.href);
+
+  // Check to see if term is in URL
   let _term = url.searchParams.get("term");
   const [input, setInput] = useState(() => _term ? _term : "");
   const [{}, dispatch] = useStateValue();
   const history = useHistory();
   const search = async (lucky) => {
 
-    // If lucky button is pressed
     if (lucky === false) {
       history.push(`/search?term=${input}`);
       dispatch({
         type: actionTypes.SET_SEARCH_TERM,
         term: _term !== null ? _term : input
       });
+
+      // If lucky button is pressed
     } else if (lucky === true) {
-      // This is for if the user presses "I'm feeling lucky" to redirect them.
-      const res = await axios.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDx6QVpLxxHK8NyjDKSk_bDD_IhJyXdr80
-      &cx=AIzaSyDx6QVpLxxHK8NyjDKSk_bDD_IhJyXdr80&q=${input}`);
-      const windowLocation = res.data.items[0].formattedUrl;
-      window.location.href = windowLocation;
+      const linkPromise = await axios(`https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_API_KEY}&cx=${process.env.REACT_APP_CONTEXT_KEY}&q=${input}
+      `);
+
+      const windowLocation = linkPromise.data.items[0].formattedUrl;
+      window.open(windowLocation, '_blank');
     }
   };
 

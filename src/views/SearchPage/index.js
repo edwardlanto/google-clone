@@ -7,7 +7,7 @@ import "./index.css";
 
 function SearchPage() {
   // Grab val from context api provider.
-  const [{ term }] = useStateValue(() => "");
+  const [{ term }] = useStateValue("");
   let { data } = useGoogleSearch(term);
 
   const handleError = (src, index) => {
